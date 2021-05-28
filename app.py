@@ -26,7 +26,7 @@ height = st.sidebar.slider('Altura do canal (m)', 0.5, 4.0, 1.0)
 flow_speed = st.sidebar.slider('Velocidade do escoamento do ar (m/s)', 10, 400, 200)
 speed_condition = float(flow_speed)#*float(height)
 
-alpha = st.sidebar.slider('Ângulo de ataque ($^\circ$)', 0, 360, 5)
+alpha = st.sidebar.slider('Ângulo de ataque (Graus)', 0, 360, 5)
 
 # st.sidebar.markdown('#### Whitened and band-passed data')
 # whiten = st.sidebar.checkbox('Whiten?', value=True)

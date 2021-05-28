@@ -134,6 +134,8 @@ class BladeMesh():
             plt.title('Velocidade vetorial ($\\vec{v}$) $[m/s]$ \n')
             plt.xlabel('x $[m]$')
             plt.ylabel('y $[m]$')
+            plt.xlim(self.baricenter[0] - 0.8, self.baricenter[0] + 0.8)
+            plt.ylim(self.baricenter[1] - 0.8, self.baricenter[1] + 0.8)
             ax = plt.gca()
             im = plot(self.vvec)
             divider = make_axes_locatable(ax)
