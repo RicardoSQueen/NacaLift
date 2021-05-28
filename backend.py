@@ -25,6 +25,7 @@ class BladeMesh():
         return None
 
     def create_mesh(self, mesh_resolution = 50):
+        parameters['allow_extrapolation'] = True
         p0 = Point(np.array([0.0, 0.0]))
         p1 = Point(np.array([self.length, self.diameter]))
         X, Y = return_naca_msh(self.profNaca, self.n_of_points)

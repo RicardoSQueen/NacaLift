@@ -1,5 +1,7 @@
 import streamlit as st
 from backend import *
+import plotly.figure_factory as ff
+
 # -- Set page config
 apptitle = 'Simulador Aerofólio'
 
@@ -21,9 +23,9 @@ naca_foil = st.sidebar.text_input('Qual o perfil NACA será simulado?')
 st.sidebar.markdown('## Parâmetros do aerofólio')
 naca_points = st.sidebar.slider('Pontos na superfície do aerofólio', 100, 400, 200)  # min, max, default
 resolution = st.sidebar.slider('Resolução da malha', 50, 400, 50)
-length = st.sidebar.slider('Comprimento da tubulação (m)', 1.0, 8.0, 4.0)
+length = st.sidebar.slider('Comprimento do Canal (m)', 1.0, 8.0, 4.0)
 height = st.sidebar.slider('Altura do canal (m)', 0.5, 4.0, 1.0)
-flow_speed = st.sidebar.slider('Velocidade do escoamento do ar (m/s)', 10, 400, 200)
+flow_speed = st.sidebar.slider('Velocidade do escoamento do ar (m/s)', 5, 50, 8)
 speed_condition = float(flow_speed)#*float(height)
 
 alpha = st.sidebar.slider('Ângulo de ataque (Graus)', 0, 360, 5)
@@ -53,7 +55,21 @@ if naca_foil != "":
         with st.beta_expander("Visualizar Soluções Graficamente"):
             st.write(fig1)
             st.write(fig2)
-        # print(mpld3.fig_to_html(fig1).split('</style>\n\n')[-1][0:200])
+        # mesh_coords = naca_study.mesh.coordinates()
+        # naca_study.vx.vector().vec().array
+        delta = 0.6
+        npoints = int(delta*2*100)
+        x = np.linspace(naca_study.baricenter[0] - delta, naca_study.baricenter[0] + delta, npoints)
+        y = np.linspace(naca_study.baricenter[1] - delta, naca_study.baricenter[1] + delta, npoints)
+        x0 = interpolate(Expression("x[0]"),V)
+        x1 = interpolate(Expression("x[1]"),V)
+        fig = ff.create_quiver(x, y, [naca_study.vx(i,j) for i in x for j in y], [naca_study.vy(i,j) for i in x for j in y],
+                       scale=1e-2,
+                       arrow_scale=.4,
+                       name='quiver',
+                       line_width=1)
+        st.plotly_chart(fig, use_container_width=True)
+
     except Exception as e:
         if naca_foil == '':
             st.header('Por favor, inserir dados do aerofólio')
