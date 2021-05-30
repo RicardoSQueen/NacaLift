@@ -192,7 +192,7 @@ slepc4py=3.12.0=py38hb2ee469_1
 smmap=3.0.5=pyh44b312d_0
 snappy=1.1.8=he1b5a44_3
 sqlite=3.35.4=h74cdb3f_0
-streamlit=0.82.0=pypi_0
+streamlit=0.81.1=pyhd8ed1ab_0
 suitesparse=5.6.0=h717dc36_0
 superlu=5.2.2=hfe2efc7_0
 superlu_dist=6.2.0=h050a5a1_4
